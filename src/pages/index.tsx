@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   const players = [
     {
@@ -14,8 +20,45 @@ export default function Home() {
     },
   ];
 
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      // August 1st, 2025 at midnight EST
+      const targetDate = new Date("2025-08-01T00:00:00-05:00");
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="h-screen w-screen flex flex-col">
+    <div className="h-screen w-screen flex flex-col relative">
+      {/* Countdown overlay - top right */}
+      <div className="absolute top-4 right-4 z-50 bg-black/80 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
+        <div className="text-xs text-gray-300 mb-1">
+          Countdown to August 1st
+        </div>
+        <div className="font-mono text-sm">
+          {timeLeft.days}d {timeLeft.hours.toString().padStart(2, "0")}h{" "}
+          {timeLeft.minutes.toString().padStart(2, "0")}m{" "}
+          {timeLeft.seconds.toString().padStart(2, "0")}s
+        </div>
+      </div>
+
       {/* Desktop: Split-screen view */}
       <div className="hidden md:flex h-full">
         {/* Left iframe - First player */}
