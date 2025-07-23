@@ -99,19 +99,19 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Mobile tab switcher at bottom */}
-        <div className="flex bg-gray-100 border-t border-gray-300">
+        {/* Mobile floating buttons - bottom right, stacked vertically */}
+        <div className="absolute bottom-4 right-4 z-50 flex flex-col gap-2">
           {players.map((player, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`flex-1 py-4 px-6 text-center font-medium transition-colors ${
+              className={`w-12 h-12 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg ${
                 activeTab === index
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-blue-500 text-white scale-110"
+                  : "bg-white text-gray-700 hover:bg-gray-100"
               }`}
             >
-              {player.name}
+              {player.name.slice(0, 3)}
             </button>
           ))}
         </div>
