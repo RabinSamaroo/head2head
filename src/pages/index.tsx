@@ -48,11 +48,11 @@ export default function Home() {
   return (
     <div className="h-screen w-screen flex flex-col relative">
       {/* Countdown overlay - top right */}
-      <div className="absolute top-4 right-4 z-50 bg-black/80 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
-        <div className="text-xs text-gray-300 mb-1">
+      <div className="absolute top-4 right-4 z-50 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-xl border border-white/20 shadow-xl">
+        <div className="text-xs text-white/80 mb-1">
           Countdown to August 1st
         </div>
-        <div className="font-mono text-sm">
+        <div className="font-mono text-sm font-semibold">
           {timeLeft.days}d {timeLeft.hours.toString().padStart(2, "0")}h{" "}
           {timeLeft.minutes.toString().padStart(2, "0")}m{" "}
           {timeLeft.seconds.toString().padStart(2, "0")}s
@@ -100,15 +100,15 @@ export default function Home() {
         </div>
 
         {/* Mobile floating buttons - middle right, stacked vertically */}
-        <div className="absolute top-1/2 right-4 -translate-y-1/2 z-50 flex flex-col gap-2">
+        <div className="absolute top-1/2 right-4 -translate-y-1/2 z-50 flex flex-col gap-3">
           {players.map((player, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`w-12 h-12 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg ${
+              className={`w-14 h-14 rounded-full font-semibold text-sm transition-all duration-300 backdrop-blur-md border shadow-xl ${
                 activeTab === index
-                  ? "bg-blue-500 text-white scale-110"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
+                  ? "bg-white/30 text-white scale-110 border-white/40 shadow-white/20"
+                  : "bg-white/10 text-white/90 hover:bg-white/20 border-white/20 hover:border-white/30"
               }`}
             >
               {player.name.slice(0, 3)}
