@@ -99,8 +99,8 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Mobile floating buttons - bottom right, stacked vertically */}
-        <div className="absolute bottom-4 right-4 z-50 flex flex-col gap-2">
+        {/* Mobile floating buttons - middle right, stacked vertically */}
+        <div className="absolute top-1/2 right-4 -translate-y-1/2 z-50 flex flex-col gap-2">
           {players.map((player, index) => (
             <button
               key={index}
